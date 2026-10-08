@@ -1,4 +1,4 @@
-# 🧸 Toy Store E-Commerce Database Analysis
+# Toy Store E-Commerce Database Analysis
 
 > SQL analysis of an online toy store's website traffic, orders, products and refunds using **PostgreSQL**.
 
@@ -8,7 +8,7 @@
 
 ---
 
-## 📌 Table of Contents
+## Table of Contents
 1. [Project Overview](#-project-overview)
 2. [Business Problem](#-business-problem)
 3. [Dataset](#-dataset)
@@ -24,7 +24,7 @@
 
 ---
 
-## 📖 Project Overview
+## Project Overview
 
 This project analyzes the data of an online **toy store** to understand how visitors move through the website, how many of them become customers, which products sell best, and how refunds affect revenue.
 
@@ -34,7 +34,7 @@ The database contains **6 related tables** covering the full customer journey: *
 
 ---
 
-## 🎯 Business Problem
+## Business Problem
 
 The management team wants to know:
 
@@ -48,7 +48,7 @@ The management team wants to know:
 
 ---
 
-## 🗂 Dataset
+## Dataset
 
 | Detail | Information |
 |---|---|
@@ -59,11 +59,9 @@ The management team wants to know:
 | **Time period** | *(add start date – end date)* |
 | **Total rows** | *(add row counts, e.g. orders: XX,XXX)* |
 
-> ⚠️ Raw CSV files are not uploaded here because of file size. Download them from the source link above.
-
 ---
 
-## 🧩 Database Schema & Relationships
+## Database Schema & Relationships
 
 ### Tables
 
