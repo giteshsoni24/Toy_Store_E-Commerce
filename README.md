@@ -166,19 +166,47 @@ erDiagram
 
 ## ❓ Business Questions Answered
 
-### 1. Traffic & Conversion
-- [ ] What is the session-to-order conversion rate overall and by traffic source?
-- [ ] Which device type converts better?
-- [ ] How many sessions come from repeat visitors?
+### 1. Which customers generated the highest total revenue,and how many orders did each customer place?
+Select
+	user_id,
+	sum(price_usd) as Total_Revenue,
+	count(order_id) as Total_Orders
+from orders
+group by user_id
+order by Total_Revenue desc;
 
-### 2. Website Funnel
-- [ ] Which pages do users visit most?
-- [ ] At which step do most users drop off?
+### 2. Which customers have spent more than the average customer revenue?
+Select
+	user_id,
+	sum(price_usd) as Total_Revenue
+from orders
+group by user_id
+having sum(price_usd) >
+(
+	Select avg (Customer_Revenue)
+	from
+	(
+		Select
+			user_id,
+			sum(price_usd) as Customer_Revenue
+		from orders
+		group by user_id
+	) as Customer_Total
+)
+order by Total_Revenue desc;
 
-### 3. Orders & Revenue
-- [ ] What are the monthly orders and revenue trends?
-- [ ] What is the average order value (AOV)?
-- [ ] What percentage of orders contain more than one item?
+### 3. Which products generated the highest: Revenue, Profit and Number of Orders
+select
+    p.product_id,
+    p.product_name,
+    count(distinct(oi.order_id)) as total_orders,
+    sum(oi.price_usd) as total_revenue,
+    sum(oi.price_usd - oi.cogs_usd) as total_profit
+from products p
+inner join order_items oi
+    on p.product_id = oi.product_id
+group by p.product_id, p.product_name
+order by total_revenue desc;
 
 ### 4. Products
 - [ ] Which products generate the most revenue and profit?
