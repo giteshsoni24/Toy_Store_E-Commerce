@@ -357,10 +357,117 @@ order by Total_Revenue desc, Average_Revenue desc;
 	
 -- Q6, Which device type has the highest session-to-order conversion rate?
 
+Select
+	ws.device_type,
+	count(distinct (ws.website_session_id)) as Total_Sessions,
+	count(distinct (o.order_id)) as Total_Orders,
+	count(distinct (o.order_id)) * 100 / count(distinct (ws.website_session_id)) as Conversion_Rate
+from website_sessions ws
+left join orders o
+	on o.user_id = ws.user_id
+group by ws.device_type
+order by Conversion_Rate desc;
+
+-- Q7, Compare repeat sessions vs non-repeat sessions based on:
+	-- Sessions
+	-- Orders
+	-- Revenue
+	-- Conversion Rate
+
+select
+    ws.is_repeat_session,
+    count(distinct ws.website_session_id) as total_sessions,
+    count(distinct o.order_id) as total_orders,
+    coalesce(sum(o.price_usd), 0) as total_revenue,
+    count(distinct o.order_id) * 100.0
+        / nullif(count(distinct ws.website_session_id), 0)
+        as conversion_rate
+from website_sessions ws
+left join orders o
+    on ws.website_session_id = o.website_session_id
+group by ws.is_repeat_session
+ORDER BY ws.is_repeat_session;
+
+-- Q8, Find each customer's first order date and first order amount.
+
+with Customer_Order as
+(
+Select
+	user_id,
+	created_at,
+	price_usd,
+	row_number() over(
+	partition by user_id
+	order by created_at asc
+	) as Order_Rank
+from orders
+)
+
+Select
+	user_id,
+	created_at as First_Date,
+	price_usd as First_Order
+from Customer_Order
+where Order_Rank = 10;
+
+-- Q9, Find the top 2 products by revenue within each product category.
+
+with Product_Table as
+(
+select
+	p.product_id,
+	p.product_name,
+	sum(oi.price_usd) as Total_Revenue,
+	row_number() over (
+	partition by p.product_name
+	order by sum(oi.price_usd) desc
+	) as Product_Rank
+from order_items oi
+inner join products p
+	on oi.product_id = p.product_id
+group by p.product_id, p.product_name
+)
+
+select *
+from Product_Table
+where Product_Rank <= 2
+order by Product_Rank;
+
+-- Q10, For every customer, show:
+	-- user_id
+	-- order_date
+	-- order_amount
+	-- previous_order_amount
+	-- difference_from_previous_order
+
+with Order_Table as
+(
+Select
+	user_id,
+	created_at as Order_Date,
+	price_usd as Order_Amount,
+	lag(price_usd) over (
+	partition by user_id
+	order by created_at 
+	) as Previous_Order_Amount
+from orders
+)
+
+Select
+	user_id,
+	Order_Date,
+	Order_Amount,
+	Previous_Order_Amount,
+	Order_Amount - Previous_Order_Amount as Order_Difference	
+from Order_Table
+order by user_id, Order_Date;
+
+-- Q11, Find the top 2 products by revenue within each product category.
+
 -- End of the Project.
 
 
-Select * from website_sessions
+Select * from orders
 order_item_refunds order_items orders products website_pageviews website_sessions
 
 -- Table Relationships
@@ -371,5 +478,4 @@ order_item_refunds = Order_item_refund_id, order_item_id, order_id
 products = product_id
 website_pageviews = website_pageview_id, website_session_id
 website_sessions = website_session_id, user_id
-
 
