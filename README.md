@@ -129,7 +129,7 @@ erDiagram
 
 ---
 
-## 🛠 Tools & Skills Used
+## Tools & Skills Used
 
 **Tools**
 - PostgreSQL
@@ -152,7 +152,7 @@ erDiagram
 
 ---
 
-## 🔄 Project Workflow
+## Project Workflow
 
 1. **Understand the data**: read the data dictionary and identify keys between tables.
 2. **Create the database and tables** with correct data types and keys.
@@ -164,9 +164,10 @@ erDiagram
 
 ---
 
-## ❓ Business Questions Answered
+## Business Questions Answered
 
 ### 1. Which customers generated the highest total revenue,and how many orders did each customer place?
+```sql
 Select
 	user_id,
 	sum(price_usd) as Total_Revenue,
@@ -174,8 +175,10 @@ Select
 from orders
 group by user_id
 order by Total_Revenue desc;
+```
 
 ### 2. Which customers have spent more than the average customer revenue?
+```sql
 Select
 	user_id,
 	sum(price_usd) as Total_Revenue
@@ -194,8 +197,14 @@ having sum(price_usd) >
 	) as Customer_Total
 )
 order by Total_Revenue desc;
+```
 
-### 3. Which products generated the highest: Revenue, Profit and Number of Orders
+### 3. Which products generated the highest:
+-- Revenue 	
+-- Profit
+-- Number of Orders
+
+```sql
 select
     p.product_id,
     p.product_name,
@@ -207,14 +216,55 @@ inner join order_items oi
     on p.product_id = oi.product_id
 group by p.product_id, p.product_name
 order by total_revenue desc;
+```
 
-### 4. Products
-- [ ] Which products generate the most revenue and profit?
-- [ ] What is the refund rate for each product?
+### 4. Find products where revenue is above the average product revenue AND they have refunds.
 
-### 5. Customers
-- [ ] How many customers placed more than one order?
-- [ ] What share of customers returned within 30 days?
+```sql
+select
+    p.product_id,
+    p.product_name,
+    sum(oi.price_usd) as overall_revenue
+from products p
+inner join order_items oi
+    on p.product_id = oi.product_id
+inner join order_item_refunds r
+    on oi.order_item_id = r.order_item_id
+group by p.product_id, p.product_name
+having sum(oi.price_usd) >
+(
+    select avg (total_revenue)
+    from
+    (
+        select
+            oi.product_id,
+            sum(oi.price_usd) as total_revenue
+        from order_items oi
+        group by oi.product_id
+    ) as average_revenue
+)
+order by overall_revenue desc;
+```
+
+### 5. Which utm_source generates:
+-- Most Sessions 	
+-- Most Orders
+-- Highest Revenue
+-- Highest Average
+
+```sql
+select
+	ws.utm_source,
+	count(distinct(ws.website_session_id)) as Total_Sessions,
+	count(distinct(o.order_id)) as Total_Orders,
+	sum(o.price_usd) as Total_Revenue,
+	avg(o.price_usd) as Average_Revenue	
+from orders o
+left join website_sessions ws
+	on o.website_session_id = ws.website_session_id
+group by ws.utm_source
+order by Total_Revenue desc, Average_Revenue desc;
+```
 
 *(Tick the boxes as you complete them, and add the query file name next to each.)*
 
