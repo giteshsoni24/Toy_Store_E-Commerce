@@ -28,7 +28,7 @@
 
 This project analyzes the data of an online **toy store** to understand how visitors move through the website, how many of them become customers, which products sell best, and how refunds affect revenue.
 
-The database contains **6 related tables** covering the full customer journey: **website session → page views → order → order items → refunds**.
+The database contains **6 related tables** covering the full customer journey: **website session → website pageviews → products → order → order items → order item refunds**.
 
 **Objective:** Use SQL to turn raw e-commerce data into answers a business team can act on.
 
@@ -39,12 +39,6 @@ The database contains **6 related tables** covering the full customer journey: *
 The management team wants to know:
 
 - Which traffic sources and devices bring the most valuable visitors?
-- Where do users drop off before buying?
-- How are orders and revenue trending over time?
-- Which products perform best, and which have high refund rates?
-- How many customers come back to buy again?
-
-*(Edit this section to match your own framing of the problem.)*
 
 ---
 
@@ -56,8 +50,6 @@ The management team wants to know:
 | **Source** | [Maven Analytics Data Playground](https://mavenanalytics.io/data-playground) *(update link if different)* |
 | **Format** | CSV files loaded into PostgreSQL |
 | **Tables** | 6 |
-| **Time period** | *(add start date – end date)* |
-| **Total rows** | *(add row counts, e.g. orders: XX,XXX)* |
 
 ---
 
@@ -74,7 +66,6 @@ The management team wants to know:
 | `order_item_refunds` | Refunds issued against order items | `order_item_refund_id` | `order_item_id`, `order_id` |
 | `products` | Product catalog | `product_id` | – |
 
-> 📝 Check this against your own files and edit if needed.
 
 ### Entity Relationship Diagram
 
@@ -116,8 +107,6 @@ erDiagram
         int product_id PK
     }
 ```
-
-*(You can replace this with a screenshot of the ERD from pgAdmin/DBeaver: save it in `/images` and use `![ERD](images/erd.png)`.)*
 
 ### Relationship Summary
 
