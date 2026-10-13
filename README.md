@@ -1,4 +1,4 @@
-# Toy Store E-Commerce Database Analysis
+<img width="128" height="128" alt="image" src="https://github.com/user-attachments/assets/59a1a96c-5920-4005-b998-26c98a835313" /># Toy Store E-Commerce Database Analysis
 
 > SQL analysis of an online toy store's website traffic, orders, products and refunds using **PostgreSQL**.
 
@@ -266,8 +266,6 @@ group by ws.utm_source
 order by Total_Revenue desc, Average_Revenue desc;
 ```
 
-*(Tick the boxes as you complete them, and add the query file name next to each.)*
-
 ---
 
 ## 📊 Key Insights
@@ -333,15 +331,6 @@ Toy_Store_E-Commerce_Database/
 5. **Load the data:** update the file paths in `02_data_loading/load_data.sql` and run it.
 6. **Check data quality:** run `03_cleaning/data_quality_checks.sql`.
 7. **Run the analysis queries** in `04_analysis/`.
-
----
-
-## 🚀 Future Improvements
-
-- Build a **Power BI dashboard** on top of this database
-- Validate key metrics in **Excel**
-- Add indexes and compare performance with `EXPLAIN ANALYZE`
-- Create views for commonly used KPIs
 
 ---
 
