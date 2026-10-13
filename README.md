@@ -345,15 +345,16 @@ Toy_Store_E-Commerce_Database/
 
 ---
 
-## 👤 Author
+## Author
 
 **Gitesh Soni**
 Business Analyst | Product Analyst | Data & BI Analyst
 
 - 📧 giteshsoni2@gmail.com
-- 💼 [LinkedIn](https://www.linkedin.com/in/giteshsoni)
-- 🎨 [Behance](https://www.behance.net/giteshsoni)
+- [LinkedIn](https://www.linkedin.com/in/giteshsoni)
+- [Behance](https://www.behance.net/giteshsoni)
+- [Github](https://github.com/giteshsoni24)
 
 ---
 
-⭐ If you found this project useful, feel free to star the repository.
+⭐ If you found this project useful, feel free to star the repository. Thank you for watching.
