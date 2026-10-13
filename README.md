@@ -1,4 +1,4 @@
-<img width="128" height="128" alt="image" src="https://github.com/user-attachments/assets/59a1a96c-5920-4005-b998-26c98a835313" /># Toy Store E-Commerce Database Analysis
+# Toy Store E-Commerce Database Analysis
 
 > SQL analysis of an online toy store's website traffic, orders, products and refunds using **PostgreSQL**.
 
