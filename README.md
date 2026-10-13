@@ -137,8 +137,6 @@ erDiagram
 - `CASE WHEN` for segmentation
 - Date functions for monthly and weekly trends
 
-*(Remove anything you did not use.)*
-
 ---
 
 ## Project Workflow
@@ -192,7 +190,6 @@ order by Total_Revenue desc;
 -- Revenue 	
 -- Profit
 -- Number of Orders
-
 ```sql
 select
     p.product_id,
@@ -208,7 +205,6 @@ order by total_revenue desc;
 ```
 
 ### 4. Find products where revenue is above the average product revenue AND they have refunds.
-
 ```sql
 select
     p.product_id,
@@ -255,28 +251,134 @@ group by ws.utm_source
 order by Total_Revenue desc, Average_Revenue desc;
 ```
 
+### 6. Which device type has the highest session-to-order conversion rate?
+```sql
+Select
+	ws.device_type,
+	count(distinct (ws.website_session_id)) as Total_Sessions,
+	count(distinct (o.order_id)) as Total_Orders,
+	count(distinct (o.order_id)) * 100 / count(distinct (ws.website_session_id)) as Conversion_Rate
+from website_sessions ws
+left join orders o
+	on o.user_id = ws.user_id
+group by ws.device_type
+order by Conversion_Rate desc;
+```
+
+### 7. Compare repeat sessions vs non-repeat sessions based on:
+-- Sessions
+-- Orders
+-- Revenue
+-- Conversion Rate
+```sql
+select
+    ws.is_repeat_session,
+    count(distinct ws.website_session_id) as total_sessions,
+    count(distinct o.order_id) as total_orders,
+    coalesce(sum(o.price_usd), 0) as total_revenue,
+    count(distinct o.order_id) * 100.0
+        / nullif(count(distinct ws.website_session_id), 0)
+        as conversion_rate
+from website_sessions ws
+left join orders o
+    on ws.website_session_id = o.website_session_id
+group by ws.is_repeat_session
+ORDER BY ws.is_repeat_session;
+```
+
+### 8. Find each customer's first order date and first order amount.
+```sql
+with Customer_Order as
+(
+Select
+	user_id,
+	created_at,
+	price_usd,
+	row_number() over(
+	partition by user_id
+	order by created_at asc
+	) as Order_Rank
+from orders
+)
+
+Select
+	user_id,
+	created_at as First_Date,
+	price_usd as First_Order
+from Customer_Order
+where Order_Rank = 10;
+```
+
+### 9. Find the top 2 products by revenue within each product category.
+```sql
+with Product_Table as
+(
+select
+	p.product_id,
+	p.product_name,
+	sum(oi.price_usd) as Total_Revenue,
+	row_number() over (
+	partition by p.product_name
+	order by sum(oi.price_usd) desc
+	) as Product_Rank
+from order_items oi
+inner join products p
+	on oi.product_id = p.product_id
+group by p.product_id, p.product_name
+)
+
+select *
+from Product_Table
+where Product_Rank <= 2
+order by Product_Rank;
+```
+
+### 10. Compare repeat sessions vs non-repeat sessions based on:
+-- User_id
+-- Order_Date
+-- Order_Amount
+-- Previous_Order_Amount
+-- Difference_Order_Amount_From_Previous
+```sql
+with Order_Table as
+(
+Select
+	user_id,
+	created_at as Order_Date,
+	price_usd as Order_Amount,
+	lag(price_usd) over (
+	partition by user_id
+	order by created_at 
+	) as Previous_Order_Amount
+from orders
+)
+
+Select
+	user_id,
+	Order_Date,
+	Order_Amount,
+	Previous_Order_Amount,
+	Order_Amount - Previous_Order_Amount as Order_Difference	
+from Order_Table
+order by user_id, Order_Date;
+```
 ---
 
-## 📊 Key Insights
+## Key Insights
 
 > Fill this in after running your queries. Use real numbers from your results.
 
 1. **Insight 1:** *(e.g. "Source X drives Y% of sessions but converts at only Z%.")*
-2. **Insight 2:** *(e.g. "Refund rate for Product A is X%, higher than the other products.")*
-3. **Insight 3:** *(e.g. "Orders grew X% from Month A to Month B.")*
-4. **Insight 4:** *(add more if needed)*
 
 ---
 
-## 💡 Recommendations
+## Recommendations
 
 1. *(Action based on Insight 1)*
-2. *(Action based on Insight 2)*
-3. *(Action based on Insight 3)*
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 Toy_Store_E-Commerce_Database/
@@ -304,11 +406,9 @@ Toy_Store_E-Commerce_Database/
 └── README.md
 ```
 
-*(Rename the files and folders to match what you actually have.)*
-
 ---
 
-## ▶️ How to Run This Project
+## How to Run This Project
 
 1. **Install** PostgreSQL and pgAdmin (or DBeaver).
 2. **Download** the dataset CSV files from the [source](#-dataset).
