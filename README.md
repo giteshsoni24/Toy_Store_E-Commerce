@@ -4,7 +4,6 @@
 
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
 ![SQL](https://img.shields.io/badge/SQL-Joins%20%7C%20CTEs%20%7C%20Window%20Functions-green)
-![Status](https://img.shields.io/badge/Status-In%20Progress-orange
 
 ---
 
