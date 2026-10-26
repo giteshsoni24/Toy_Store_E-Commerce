@@ -462,13 +462,120 @@ Select
 from Order_Table
 order by user_id, Order_Date;
 
--- Q11, Find the top 2 products by revenue within each product category.
+-- Q11, Customer Segmentation: Classify customers
 
+Select 
+	user_id,
+	sum(price_usd) as Revenue,
+	case
+		when sum(price_usd) >= 1000000 then 'Preimum'
+		when sum(price_usd) >= 100000 then 'High'
+		when sum(price_usd) >= 50000 then 'Medium'
+		else 'Low'
+	end as Customer_Classification
+from orders
+group by user_id
+order by Revenue desc;
+
+-- Q12, Rank customers by revenue:
+
+Select 
+	user_id,
+	sum(price_usd) as Revenue,
+	rank() over(
+	order by sum(price_usd) desc
+	) as Customer_Rank
+from orders
+group by user_id;
+
+or 
+
+Select 
+	user_id,
+	sum(price_usd) as Revenue,
+	dense_rank() over(
+	order by sum(price_usd) desc
+	) as Customer_Rank
+from orders
+group by user_id;
+
+-- Q13, Show cumulative revenue over time.
+
+Select
+	created_at as Date,
+	sum(price_usd) as Daily_Revenue,
+	sum(sum(price_usd)) over (
+	order by created_at
+	) as Running_Revenue
+from orders
+group by created_at
+order by Date;
+
+-- Q14, Find customers who:
+	-- Have generated significant revenue
+	-- But haven't purchased recently
+
+Select
+	user_id,
+	sum(price_usd) as Total_Revenue,
+	max(created_at) as Last_Purchase_Date
+from orders
+group by user_id
+having sum(price_usd) > 500
+	and max(created_at) < '2026-07-01'
+order by Total_Revenue desc;
+
+-- Q15, Calculate:
+	-- Product
+	-- Revenue
+	-- Refund Amount
+	-- Refund %
+
+Select
+	count(distinct oi.product_id) as Total_Products,
+	sum(oi.price_usd) as Total_Revenue,
+	sum(oir.refund_amount_usd) as Total_Refund_Amount,
+	round(
+		sum(oir.refund_amount_usd) * 100
+		/ nullif(sum(oi.price_usd),0),2
+	) as Refund_Percentage
+from order_items oi
+left join order_item_refunds oir
+	on oi.order_item_id = oir.order_item_id;
+
+-- Q16, Identify which marketing source ultimately generates the most revenue for each product.
+
+select
+    ws.utm_source,
+    p.product_name,
+    sum(oi.price_usd) as total_revenue
+from orders o
+inner join order_items oi
+    on o.order_id = oi.order_id
+inner join products p
+    on oi.product_id = p.product_id
+inner join website_sessions ws
+    on o.website_session_id = ws.website_session_id
+group by ws.utm_source, p.product_name
+order by p.product_name, total_revenue desc;
+
+-- Q17, Rank utm_source by total revenue and show:
+
+select
+	ws.utm_source,
+	sum(o.price_usd) as Total_Revenue,
+	rank() over(
+	partition by ws.utm_source
+	order by sum(o.price_usd)
+	) as Rank_UTM_Source
+from website_sessions ws
+inner join orders o
+	on ws.user_id = o.user_id
+group by ws.utm_source
+order by Total_Revenue desc;
+
+	
 -- End of the Project.
-
-
-Select * from orders
-order_item_refunds order_items orders products website_pageviews website_sessions
 
 -- Table Relationships
 
@@ -476,6 +583,6 @@ orders = order_id, website_session_id, user_id, primary_product_id
 order_items = order_item_id, order_id, product_id
 order_item_refunds = Order_item_refund_id, order_item_id, order_id
 products = product_id
-website_pageviews = website_pageview_id, website_session_id
 website_sessions = website_session_id, user_id
+website_pageviews = website_pageview_id, website_session_id
 
