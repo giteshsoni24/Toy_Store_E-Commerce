@@ -89,6 +89,7 @@ erDiagram
     products ||--o{ orders : "primary product"
     order_items ||--o| order_item_refunds : "may be refunded"
     orders ||--o{ order_item_refunds : "has"
+   	calendar ||--o{ orders : "order date"
 
     website_sessions {
         int website_session_id PK
@@ -117,6 +118,15 @@ erDiagram
     products {
         int product_id PK
     }
+	calendar {
+        date date PK
+        int year
+        int quarter
+        int month
+        string month_name
+        int day
+        string day_name
+    }
 ```
 
 ### Relationship Summary
@@ -138,16 +148,16 @@ erDiagram
 - GitHub
 
 **SQL Skills Demonstrated**
-- Database and table creation (`CREATE TABLE`, primary and foreign keys)
-- Data loading (`COPY` / Import)
-- Data cleaning and validation (nulls, duplicates, date checks)
-- Multi-table `JOIN`s (INNER, LEFT)
-- Aggregations (`GROUP BY`, `HAVING`)
-- Common Table Expressions (CTEs)
-- Subqueries
-- Window functions (`ROW_NUMBER`, `RANK`, `LAG`, running totals)
-- `CASE WHEN` for segmentation
-- Date functions for monthly and weekly trends
+- Database and Schema Design: Created multiple relational tables with proper data types, PRIMARY KEY constraints, BIGSERIAL auto-incrementing IDs, and foreign key relationships (REFERENCES).
+- Data Validation & Cleaning Checks: Queried tables to audit and check for missing values or nulls (IS NULL) across primary attributes and foreign keys.
+- Multi-Table Joins: Combined data across related tables using INNER JOIN and LEFT JOIN to stitch together sessions, orders, order items, refunds, and products.
+- Aggregations & Conditional Grouping: Leveraged GROUP BY alongside aggregate functions (SUM, COUNT, AVG, MIN, MAX) and filtered aggregated results using HAVING.
+- Common Table Expressions (CTEs): Structured complex queries using WITH clauses for clean, readable multi-step logic (e.g., ranking user orders and product performances).
+- Subqueries: Implemented nested subqueries (such as calculating metrics against overall averages inside HAVING clauses).
+- Advanced Window Functions: Utilized analytic functions including ROW_NUMBER(), RANK(), DENSE_RANK(), and LAG() with PARTITION BY and ORDER BY clauses.
+- Running Totals & Cumulative Metrics: Calculated cumulative/running revenue over time using window frames (OVER (ORDER BY ...)).
+- Conditional Logic: Performed customer tier classification and segmentation using CASE WHEN statements.
+- Date Manipulation: Extracted and grouped trends over time using date truncation functions like DATE_TRUNC('month', created_at).   
 
 ---
 
