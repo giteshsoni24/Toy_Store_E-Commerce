@@ -9,11 +9,11 @@
 
 ## Project Overview
 
-This project analyzes the data of an online **toy store** to understand how visitors move through the website, how many of them become customers, which products sell best, and how refunds affect revenue.
+An end-to-end e-commerce analytics project using PostgreSQL, SQL, and Power BI to investigate sales performance, website traffic, marketing effectiveness, product profitability, refunds, and customer behaviour.
 
-The database contains **6 related tables** covering the full customer journey: **website session → website pageviews → products → order → order items → order item refunds**.
+The database contains **7 related tables** covering the full customer journey: **Calender table → website session → website pageviews → products → order → order items → order item refunds**.
 
-**Objective:** Use SQL to turn raw e-commerce data into answers a business team can act on.
+**Objective:** To transform raw e-commerce data into actionable business insights that support performance monitoring and help identify opportunities for improvement.
 
 ---
 
@@ -21,7 +21,34 @@ The database contains **6 related tables** covering the full customer journey: *
 
 The management team wants to know:
 
-- Which traffic sources and devices bring the most valuable visitors?
+### Business problems and how your dashboard helps:
+- Overall performance is unclear.
+- Marketing effectiveness is unknown.
+- Product performance varies.
+- Customer behaviour is poorly understood.
+- Refunds affect profitability.
+- Desktop and mobile performance may differ.
+
+### Executive Overview:
+- How much revenue and profit is the business generating?
+- How many orders and customers does it have?
+- What is the average order value?
+
+### Traffic & Marketing:
+- Which marketing sources generate the most traffic?
+- Which sources generate the most revenue?
+- Does conversion differ between desktop and mobile?
+- Are some channels attracting visitors without generating enough orders?
+
+### Product & Refunds:
+- Which products contribute the most revenue and profit?
+- Which products have the highest refund rates?
+- Which products should be investigated for potential performance or quality issues?
+
+### Customer Analysis:
+- Who are the highest-value customers?
+- How much revenue does the average customer generate?
+- Which customers may be inactive and worth investigating for re-engagement?
 
 ---
 
@@ -32,7 +59,7 @@ The management team wants to know:
 | **Name** | Toy Store E-Commerce Database (Maven Analytics – Fuzzy Factory) |
 | **Source** | [Maven Analytics Data Playground](https://mavenanalytics.io/data-playground) *(update link if different)* |
 | **Format** | CSV files loaded into PostgreSQL |
-| **Tables** | 6 |
+| **Tables** | 7 |
 
 ---
 
@@ -48,6 +75,7 @@ The management team wants to know:
 | `order_items` | Individual products inside each order | `order_item_id` | `order_id`, `product_id` |
 | `order_item_refunds` | Refunds issued against order items | `order_item_refund_id` | `order_item_id`, `order_id` |
 | `products` | Product catalog | `product_id` | – |
+| `Celender_Table` | Defining date range | `Date` | – |
 
 
 ### Entity Relationship Diagram
@@ -104,8 +132,9 @@ erDiagram
 ## Tools & Skills Used
 
 **Tools**
-- PostgreSQL
-- pgAdmin / DBeaver
+- Excel
+- PostgreSQL / pgAdmin
+- Power Bi
 - GitHub
 
 **SQL Skills Demonstrated**
