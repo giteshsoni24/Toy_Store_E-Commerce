@@ -1,7 +1,5 @@
 # Toy Store E-Commerce Database Analysis
 
----
-
 ## Project Overview
 
 An end-to-end e-commerce analytics project using PostgreSQL, SQL, and Power BI to investigate sales performance, website traffic, marketing effectiveness, product profitability, refunds, and customer behaviour.
