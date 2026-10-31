@@ -1,10 +1,5 @@
 # Toy Store E-Commerce Database Analysis
 
-> SQL analysis of an online toy store's website traffic, orders, products and refunds using **PostgreSQL**.
-
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
-![SQL](https://img.shields.io/badge/SQL-Joins%20%7C%20CTEs%20%7C%20Window%20Functions-green)
-
 ---
 
 ## Project Overview
