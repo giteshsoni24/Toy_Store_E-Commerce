@@ -178,6 +178,24 @@ erDiagram
 
 ---
 
+## Power BI Dashboard
+
+The dashboard consists of four analytical sections:
+
+### 1. Executive Overview
+![Executive Overview](PowerBI/Screenshots/01_Executive_Overview.png)
+
+### 2. Traffic & Marketing
+![Traffic and Marketing](PowerBI/Screenshots/02_Traffic_Marketing.png)
+
+### 3. Product & Refunds
+![Product and Refunds](PowerBI/Screenshots/03_Product_Refunds.png)
+
+### 4. Customer Analysis
+![Customer Analysis](PowerBI/Screenshots/04_Customer_Analysis.png)
+
+---
+
 ## Business Questions Answered
 
 ### 1. Which customers generated the highest total revenue,and how many orders did each customer place?
