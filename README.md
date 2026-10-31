@@ -163,13 +163,18 @@ erDiagram
 
 ## Project Workflow
 
-1. **Understand the data**: read the data dictionary and identify keys between tables.
-2. **Create the database and tables** with correct data types and keys.
-3. **Load the CSV files** into PostgreSQL.
-4. **Profile and clean the data**: row counts, nulls, duplicates, date ranges.
-5. **Define business questions** before writing queries.
-6. **Write SQL queries** to answer each question.
-7. **Summarize insights and recommendations.**
+1. Understand the Data: Review the data dictionary, understand each CSV file, identify key columns, and determine relationships between tables.
+2. Database Design: Create the PostgreSQL database and define tables with appropriate data types, primary keys, foreign keys, and constraints.
+3. Data Loading: Import the CSV datasets into PostgreSQL and verify successful data ingestion.
+4. Data Profiling & Quality Checks: Validate row counts, null values, duplicates, date ranges, key uniqueness, and referential integrity.
+5. Exploratory Data Analysis (EDA): Explore the dataset using SQL to understand sales, customer behaviour, website traffic, product performance, and refund patterns.
+6. Business Question Definition: Identify key business problems and translate them into measurable analytical questions and KPIs.
+7. SQL-Based Business Analysis: Write SQL queries using joins, aggregate functions, CTEs, subqueries, conditional logic, and window functions where appropriate to answer the business questions.
+8. Power BI Data Preparation: Connect Power BI to PostgreSQL, transform and clean data using Power Query, and prepare the required tables for analysis.
+9. Data Modeling & DAX: Establish relationships between tables, define appropriate measures, and calculate business KPIs such as revenue, profit, average order value, and conversion rate.
+10. Dashboard Development: Build interactive Power BI dashboards covering Executive Overview, Traffic & Marketing, Product & Refunds, and Customer Analysis.
+11. Insights & Recommendations: Interpret the analytical results, identify business trends and potential improvement opportunities, and recommend data-driven actions.
+12. Documentation & Portfolio Publishing: Document the project workflow, SQL queries, data model, dashboard screenshots, key findings, and recommendations on GitHub.
 
 ---
 
@@ -509,13 +514,25 @@ order by Total_Revenue desc;
 
 > Fill this in after running your queries. Use real numbers from your results.
 
-1. **Insight 1:** *(e.g. "Source X drives Y% of sessions but converts at only Z%.")*
+1. **Sales Performance:** *Analyzed overall revenue, profit, orders, average order value (AOV), and sales trends.*
+2. **Marketing Performance:** *Compared traffic sources based on website sessions, orders, revenue, and conversion rates.*
+3. **Device Analysis:** *Evaluated desktop and mobile traffic to identify differences in conversion performance.*
+4. **Product Performance:** *Identified high-revenue and high-profit products and analyzed product-level refunds.*
+5. **Customer Segmentation:** *Classified customers based on spending behaviour and identified high-value customers.*
+6. **Customer Retention:** *Identified high-spending customers who had not purchased recently, highlighting potential retention opportunities.*
+7. **Repeat Behaviour:** *Compared repeat and non-repeat sessions to understand purchasing patterns.*
 
 ---
 
-## Recommendations
+## Business Recommendations
 
-1. *(Action based on Insight 1)*
+1. **Marketing Optimization:** *Prioritize marketing channels based on revenue and conversion performance, not just traffic volume.*
+2. **Conversion Improvement:** *Investigate customer journey friction across desktop and mobile platforms.*
+3. **Product Optimization:** *Review low-performing and high-refund products to identify potential quality or pricing issues.*
+4. **Customer Retention:** *Develop targeted re-engagement campaigns for high-value inactive customers.*
+5. **Customer Loyalty:** *Introduce loyalty programs and personalized offers to encourage repeat purchases.*
+6. **Profitability Improvement:** *Focus on products and customer segments that contribute stronger profitability.*
+7. **Performance Monitoring:** *Use the Power BI dashboard for regular business reviews and data-driven decision-making.*
 
 ---
 
@@ -539,6 +556,25 @@ Toy_Store_E-Commerce_Database/
 │   ├── orders_and_revenue.sql
 │   ├── products_and_refunds.sql
 │   └── customer_behavior.sql
+│
+├── 05_power_bi/
+│   │
+│   ├── Toy_Store_E-Commerce_Dashboard.pbix
+│   │
+│   ├── screenshots/
+│   │   ├── 01_executive_overview.png
+│   │   ├── 02_traffic_and_marketing.png
+│   │   ├── 03_product_and_refunds.png
+│   │   └── 04_customer_analysis.png
+│   │
+│   └── documentation/
+│       ├── data_model.png
+│       └── dax_measures.md
+│
+├── 06_documentation/
+│   ├── business_problem.md
+│   ├── business_insights.md
+│   └── data_dictionary.md
 │
 ├── images/
 │   ├── erd.png
@@ -569,10 +605,11 @@ Toy_Store_E-Commerce_Database/
 **Gitesh Soni**
 Business Analyst | Product Analyst | Data & BI Analyst
 
-- 📧 giteshsoni2@gmail.com
-- [LinkedIn](https://www.linkedin.com/in/giteshsoni)
-- [Behance](https://www.behance.net/giteshsoni)
-- [Github](https://github.com/giteshsoni24)
+- 📧 [Email](mailto:giteshsoni2@gmail.com)
+- 💼 [LinkedIn](https://www.linkedin.com/in/giteshsoni)
+- 🎨 [Behance](https://www.behance.net/giteshsoni)
+- 🐙 [GitHub](https://github.com/giteshsoni24)
+- 📸 [Instagram](https://www.instagram.com/growwithgitesh/)
 
 ---
 
